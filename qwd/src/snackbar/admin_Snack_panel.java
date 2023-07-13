@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 import c_loginout.Sign_in;
 
-public class admin_Snack_panel extends JPanel {
+public class Admin_Snack_panel extends JPanel {
 
 	Sign_in sign_in;
 	private JTable table;
@@ -26,7 +26,7 @@ public class admin_Snack_panel extends JPanel {
 	private JTextField textField;
 	public String selectedName1; // 선택된 열의 ID를 저장할 변수, 보내야 해서 public으로 설정
 
-	public admin_Snack_panel(Sign_in signin) {
+	public Admin_Snack_panel(Sign_in signin) {
 		this.sign_in = signin;
 
 		tableModel = new DefaultTableModel(ob, title);

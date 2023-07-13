@@ -27,18 +27,21 @@ import javax.swing.JTextField;
 
 import movie_server.CustomerVO;
 import movie_server.LoginInfo_VO;
+import movie_server.M_movieVO;
 import movie_server.MobileTicket_VO;
 import movie_server.Protocol;
 import movie_server.TicketBox_VO;
 import pay.Pay;
 import pay.PointChargeDialog;
-import pay.Reservation_completed;
-import snackbar.Snack;
-import snackbar.admin_Customer_panel;
-import snackbar.admin_Snack_panel;
-import snackbar.admin_movie_panel;
-import snackbar.admin_order_panel;
-import snackbar.admin_panel;
+import snackbar.Admin_Customer_change;
+import snackbar.Admin_Customer_panel;
+import snackbar.Admin_Snack_panel;
+import snackbar.Admin_movie_panel;
+import snackbar.Admin_order_panel;
+import snackbar.Admin_panel;
+import snackbar.S_Menu1;
+import snackbar.S_Menu2;
+import snackbar.S_Menu3;
 import ticket.MobileTicket;
 import ticket.TicketList;
 import ticketbox.Ticket_before_pay;
@@ -73,7 +76,6 @@ public class Sign_in extends JFrame implements Runnable {
 	public LoginInfo_VO lvo;
 	public Pay pay;
 	public PointChargeDialog pointcharge;
-	public Reservation_completed r_completed;
 	// public Menu menu;
 	public MobileTicket m_ticket;
 	public TicketList t_list;
@@ -81,14 +83,20 @@ public class Sign_in extends JFrame implements Runnable {
 	public Ticket_office_main to_main;
 	public Ticket_seat_map ts_map;
 	public Ticket_seat t_seat;
-	public snackbar.Snack snack;
-	public admin_panel admin;
-	public admin_Customer_panel c_admin;
-	public admin_order_panel o_admin;
-	public admin_Snack_panel s_admin;
-	public admin_movie_panel m_admin;
 	
-	Protocol p; // 다른 화면에서 호출하기 위해 추가
+	
+	public Admin_panel admin;
+	public Admin_Customer_panel c_admin;
+	public Admin_Customer_change cc_admin;
+	public Admin_order_panel o_admin;
+	public Admin_Snack_panel s_admin;
+	public Admin_movie_panel m_admin;
+	//public Snack snack;
+	public S_Menu1 snack1;
+	public S_Menu2 snack2;
+	public S_Menu3 snack3;
+	
+	public Protocol p; // 다른 화면에서 호출하기 위해 추가
 
 	public Sign_in() {
 		super("4딸라-필름");
@@ -217,38 +225,52 @@ public class Sign_in extends JFrame implements Runnable {
 		main_login = new Main_login(this);
 		sign_up = new Sign_up(this);
 		mypage = new MyPage(this);
-		r_completed = new Reservation_completed(this);
 		t_list = new TicketList(this);
 		//pay = new Pay(this);
 		tb_pay = new Ticket_before_pay(this);
 		to_main = new Ticket_office_main(this);
 		ts_map = new Ticket_seat_map(this);
 		t_seat = new Ticket_seat(this);
-		snack = new Snack(this);
-		admin = new admin_panel(this);
-		c_admin = new admin_Customer_panel(this);
-		o_admin = new admin_order_panel(this);
-		s_admin = new admin_Snack_panel(this);
-		m_admin = new admin_movie_panel(this);
+		
+		
+
+		c_admin = new Admin_Customer_panel(this);
+		cc_admin = new Admin_Customer_change(this);
+		o_admin = new Admin_order_panel(this);
+		s_admin = new Admin_Snack_panel(this);
+		m_admin = new Admin_movie_panel(this);
+		admin = new Admin_panel(this);
+		//snack = new Snack(this);
+		snack1 = new S_Menu1(this);
+		snack2 = new S_Menu2(this);
+		snack3 = new S_Menu3(this);
 
 		setContentPane(pg);
 		
 		pg.add(main_login, "main_login");
 		pg.add(sign_up, "sign_up");
 		pg.add(mypage,"mypage");
-		pg.add(r_completed, "r_completed");
 		pg.add(t_list, "t_list");
-		//pg.add(pay, "pay");
+
 		pg.add(tb_pay, "tb_pay");
 		pg.add(to_main, "to_main");
 		pg.add(ts_map, "ts_map");
 		pg.add(t_seat, "t_seat");
+
+		//pg.add(snack, "snack");
 		pg.add(admin, "admin");
-		pg.add(snack, "snack");
-		pg.add(c_admin, "c_admin");
-		pg.add(o_admin, "o_admin");
 		pg.add(s_admin, "s_admin");
+		pg.add(c_admin, "c_admin");
+		pg.add(cc_admin, "cc_admin");
+		pg.add(o_admin, "o_admin");
 		pg.add(m_admin, "m_admin");
+		pg.add(m_admin, "m_admin");
+		pg.add(snack1, "snack1");
+		pg.add(snack2, "snack2");
+		pg.add(snack3, "snack3");
+		
+		
+		
 	}
 
 	// 서버 연결 메서드
@@ -259,7 +281,8 @@ public class Sign_in extends JFrame implements Runnable {
 			// 지호-학원: 192.168.0.78
 			// 지호-집: 192.168.0.11
 			// 192.168.0.80 지혜
-			// 192.168.0.34
+			// 192.168.0.33 민서
+			// 192.168.0.34 누구임 범인은 적어두도록
 			s = new Socket("192.168.0.33", 7780);
 			out = new ObjectOutputStream(s.getOutputStream());
 			in = new ObjectInputStream(s.getInputStream());
@@ -352,26 +375,41 @@ public class Sign_in extends JFrame implements Runnable {
 						break; 
 					case 402: // 고객정보 삭제 후 int로 성공유무 받기
 						int ad_result = p.getResult();
-						c_admin.adminResultalert(ad_result);
+						if (ad_result >= 0) {
+							JOptionPane.showMessageDialog(getParent(), "고객정보 삭제 완료");
+						} else {
+							JOptionPane.showMessageDialog(getParent(), "삭제 실패");
+						}
 						break;
 					case 403: // ID로 검색후 회원정보 받기(List로받음)
 						if(p.getAd_clist() != null) {
 							List<CustomerVO> ad_custOne = p.getAd_clist();
 							c_admin.adminCustListToTable(ad_custOne);
-							break;
 						}else {
 							JOptionPane.showMessageDialog(getParent(), "데이터가 없습니다");
-							break;
 						}
+						break;
 					case 404: //관리자 권한 추가 성공하면 알림 보내기
 						int adminok_result = p.getResult();
 						if(adminok_result>= 0) {
 						JOptionPane.showMessageDialog(getParent(), "관리자 권한이 생성되었습니다");
-						break;
 						}else {
-							JOptionPane.showMessageDialog(getParent(), "관리자 아이디 입니다");
-							break;
+							JOptionPane.showMessageDialog(getParent(), "이미 관리자 권한이 있는 아이디 입니다");
 						}
+						break;
+					case 405: // 고객 정보 받아서 수정하는 패널로 보내기
+						List<CustomerVO> ad_ch_custList = p.getAd_clist();
+						cc_admin.CustListInfo_admin(ad_ch_custList);
+						break;
+						
+					case 406: // 고객정보 수정후 int값 받음
+						int ad_ch_result = p.getResult();
+						if (ad_ch_result >= 0) {
+							JOptionPane.showMessageDialog(getParent(), "고객 정보 수정이 완료되었습니다");
+						}else {
+							JOptionPane.showMessageDialog(getParent(), "수정할 정보 값이 잘못 입력되었습니다");
+						}
+						break;
 						
 					case 501: // 로그인
 						// 지호
@@ -382,9 +420,12 @@ public class Sign_in extends JFrame implements Runnable {
 							
 							// 화면 초기화
 							LoginSuccess();
+							if(p.getC_vo().getDelete_yn().equals("1")){
+								JOptionPane.showMessageDialog(getParent(), "탈퇴한 회원 입니다. 관리자에게 문의 하세요");
+								init();//텍스트필드 초기화
+							}
 
-							
-							if(p.getC_vo().getAdmin_yn().equals("0")) {
+							if(p.getC_vo().getAdmin_yn().equals("0") && p.getC_vo().getDelete_yn().equals("0")) {
 								// 로그인 성공
 								String name = p.getC_vo().getCust_name();
 								System.out.println(name + " 님 로그인 성공");
@@ -393,13 +434,14 @@ public class Sign_in extends JFrame implements Runnable {
 								
 								card.show(pg, "main_login");
 								System.out.println("메인창 화면 전환 성공");
-							} else {
+							} else if(p.getC_vo().getAdmin_yn().equals("1")){
 								card.show(pg, "admin"); // 관리자 페이지로 이동 
 								JOptionPane.showMessageDialog(getParent(), "관리자 로그인 성공");
 								//관리자팀은 먼저 카드선언하는위에 관리자 화면단 선언해주고 여기에 써주세요.
 								//관리자 로그인시 버퍼인지, 메인이 잠시보였다가 관리자페이지로 뜸. 이건 수정하거나
 								//봐야할 필요성있음 ****
-							}
+							} 
+					
 						} else {
 							// 로그인 실패
 							JOptionPane.showMessageDialog(getParent(), "가입 정보 없음");
@@ -423,6 +465,11 @@ public class Sign_in extends JFrame implements Runnable {
 						System.out.println("signin 504cmd");
 						logoutRes=p.getResult();
 						logoutRes();
+						break;
+					case 601:
+						System.out.println("signin 601");
+						List<M_movieVO> mslist = p.getMsList();
+						m_admin.adminMoiveListToTable(mslist);
 						break;
 					}
 				}

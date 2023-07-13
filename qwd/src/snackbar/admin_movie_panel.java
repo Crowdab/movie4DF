@@ -15,10 +15,10 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import c_loginout.Sign_in;
-import movie_server.MovieVO;
+import movie_server.M_movieVO;
 import movie_server.Protocol;
 
-public class admin_movie_panel extends JPanel {
+public class Admin_movie_panel extends JPanel {
 
 	Sign_in sign_in;
 
@@ -37,7 +37,7 @@ public class admin_movie_panel extends JPanel {
 
 	public String selectedName2;
 
-	public admin_movie_panel(Sign_in signin) {
+	public Admin_movie_panel(Sign_in signin) {
 		this.sign_in = signin;
 		this.setLayout(null);
 		
@@ -93,6 +93,8 @@ public class admin_movie_panel extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
+					m_tableModel.setNumRows(0);
+					System.out.println("p601 요청!!!!");
 					Protocol p = new Protocol();
 					p.setCmd(601);
 					sign_in.out.writeObject(p);
@@ -140,8 +142,8 @@ public class admin_movie_panel extends JPanel {
 		
 		
 	}
-	public void adminMoiveListToTable(List<MovieVO> movieList) {
-		for(MovieVO k : movieList) {
+	public void adminMoiveListToTable(List<M_movieVO> m_movieList) {
+		for(M_movieVO k : m_movieList) {
 			Object data[] = {k.getMovie_id(),k.getMovie_name(),k.getMovie_date(),k.getStart_time(),k.getEnd_time(),k.getPoster_img(),k.getTheater_id()};
 			m_tableModel.addRow(data);
 		}

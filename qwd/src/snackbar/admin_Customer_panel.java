@@ -21,7 +21,7 @@ import c_loginout.Sign_in;
 import movie_server.CustomerVO;
 import movie_server.Protocol;
 
-public class admin_Customer_panel extends JPanel {
+public class Admin_Customer_panel extends JPanel {
 	Sign_in sign_in;
 	private JTable table;
 	private JScrollPane jscroll;
@@ -31,7 +31,7 @@ public class admin_Customer_panel extends JPanel {
 	private JTextField textField;
 	public String selectedName1; // 선택된 열의 ID를 저장할 변수, 보내야 해서 public으로 설정
 
-	public admin_Customer_panel(Sign_in signin) {
+	public Admin_Customer_panel(Sign_in signin) {
 
 		this.sign_in = signin;
 		this.setLayout(null);
@@ -63,7 +63,7 @@ public class admin_Customer_panel extends JPanel {
 		b_all.setBounds(610, 640, 172, 35);
 		add(b_all);
 
-		JButton b_sel = new JButton("수 정");
+		JButton b_sel = new JButton("고객정보 수정");
 		b_sel.setBounds(415, 640, 172, 35);
 		add(b_sel);
 
@@ -85,12 +85,21 @@ public class admin_Customer_panel extends JPanel {
 		b_back.setBounds(610, 696, 172, 35);
 		add(b_back);
 
-		// 버튼리스너 =============================
+		// 버튼리스너=========================================
+
+		b_delete.setEnabled(false); // 테이블 열을 선택하지 않으면 삭제버튼 비활성화
+		btnNewButton.setEnabled(false); // 테이블 열을 선택하지 않으면 관리자 추가버튼 비활성화
+		b_sel.setEnabled(false); // 테이블 열을 선택하지 않으면 고객수정 버튼 비활성화
+
 		// 돌아가기
 		b_back.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				sign_in.card.show(sign_in.pg, "admin");
+				tableModel.setNumRows(0);
+				b_delete.setEnabled(false); 
+				btnNewButton.setEnabled(false);
+				b_sel.setEnabled(false);
 			}
 		});
 
@@ -110,10 +119,6 @@ public class admin_Customer_panel extends JPanel {
 			}
 		});
 
-		// 테이블 정보를 눌러 회원정보 1개 삭제
-
-		b_delete.setEnabled(false); // 테이블 열을 선택하지 않으면 삭제버튼 비활성화
-		btnNewButton.setEnabled(false); // 테이블 열을 선택하지 않으면 관리자 추가버튼 비활성화
 		// 테이블에서 열 선택해서 정보를 담는 이벤트
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			@Override
@@ -124,7 +129,12 @@ public class admin_Customer_panel extends JPanel {
 					// 선택된 열의 Name 데이터를 변수에 저장
 					selectedName1 = table.getValueAt(selectedRow, 0).toString();
 					b_delete.setEnabled(true); // 삭제 버튼 활성화
-					btnNewButton.setEnabled(true); // 관리자 추가버튼 비활성화
+					btnNewButton.setEnabled(true); // 관리자 추가버튼 활성화
+					b_sel.setEnabled(true); // 수정버튼 활성화
+				}else {
+					b_delete.setEnabled(false);  // 선택되지 않으면 비활성화
+					btnNewButton.setEnabled(false); 
+					b_sel.setEnabled(false); 
 				}
 			}
 		});
@@ -152,7 +162,9 @@ public class admin_Customer_panel extends JPanel {
 					} catch (Exception e2) {
 					}
 					selectedName1 = null; // 변수 초기화
-					b_delete.setEnabled(false); // 삭제 후 버튼 비활성화
+					b_delete.setEnabled(false); 
+					btnNewButton.setEnabled(false); 
+					b_sel.setEnabled(false); 
 				}
 			}
 		});
@@ -161,7 +173,7 @@ public class admin_Customer_panel extends JPanel {
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				try {		
+				try {
 					tableModel.setNumRows(0); // 테이블 초기화
 					Protocol p = new Protocol();
 					p.setCmd(404);
@@ -171,6 +183,9 @@ public class admin_Customer_panel extends JPanel {
 				} catch (Exception e2) {
 				}
 				selectedName1 = null; // 변수 초기화
+				b_delete.setEnabled(false); 
+				btnNewButton.setEnabled(false); 
+				b_sel.setEnabled(false); 
 			}
 		});
 
@@ -187,7 +202,27 @@ public class admin_Customer_panel extends JPanel {
 					sign_in.out.flush();
 				} catch (Exception e2) {
 				}
-
+				textField.setText(""); // textField 초기화				
+			}
+		});
+		// 수정하기 패널로 넘어가는 버튼
+		b_sel.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				sign_in.card.show(sign_in.pg, "cc_admin");
+				try {
+					tableModel.setNumRows(0); // 테이블 초기화
+					Protocol p = new Protocol();
+					p.setCmd(405);
+					p.setDel_id(selectedName1);//고객 정보를 띄울 아이디를 보냄
+					sign_in.out.writeObject(p);
+					sign_in.out.flush();
+				} catch (Exception e2) {
+				}
+				textField.setText(""); // textField 초기화
+				b_delete.setEnabled(false); 
+				btnNewButton.setEnabled(false); 
+				b_sel.setEnabled(false); 
 			}
 		});
 
@@ -201,11 +236,5 @@ public class admin_Customer_panel extends JPanel {
 			tableModel.addRow(data);
 		}
 	}
-	public void adminResultalert(int result) {
-		if(result >= 0) {
-			JOptionPane.showMessageDialog(sign_in.c_admin, "완료 되었습니다", "알림", JOptionPane.WARNING_MESSAGE);
-		}else {
-			JOptionPane.showMessageDialog(sign_in.c_admin, "실패 했습니다", "알림", JOptionPane.WARNING_MESSAGE);
-		}
-	}
+	
 }

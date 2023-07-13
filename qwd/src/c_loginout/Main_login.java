@@ -89,7 +89,7 @@ public class Main_login extends JPanel {
 		// 이건 제목으로밖에 안쓰기 때문에 생성만.
 		JLabel lblNewLabel = new JLabel("절찬 상영중");
 		lblNewLabel.setFont(new Font("맑은 고딕", Font.BOLD, 30));
-		lblNewLabel.setBounds(12, 316, 194, 41);
+		lblNewLabel.setBounds(48, 316, 194, 41);
 		this.add(lblNewLabel);
 
 		// 영화 포스터 버튼들. 각 포스터 버튼 눌렀을때, 매표소로 넘어가고, 클릭한 해당 버튼의
@@ -102,18 +102,17 @@ public class Main_login extends JPanel {
 		this.add(btnNewButton);
 
 		JButton btnNewButton_1 = new JButton();
-		btnNewButton_1.setBounds(211, 381, 131, 210);
+		btnNewButton_1.setBounds(223, 382, 131, 210);
 		this.add(btnNewButton_1);
 
 		JButton btnNewButton_2 = new JButton();
-		btnNewButton_2.setBounds(384, 381, 131, 210);
+		btnNewButton_2.setBounds(402, 382, 131, 210);
 		this.add(btnNewButton_2);
 
 		JButton btnNewButton_3 = new JButton();
-		btnNewButton_3.setBounds(563, 381, 131, 210);
+		btnNewButton_3.setBounds(585, 382, 131, 210);
 		this.add(btnNewButton_3);
 
-		// 하단의 액션리스너
 		JButton ticketing_bt = new JButton("빠른 예매");
 		ticketing_bt.setFont(new Font("맑은 고딕", Font.BOLD, 16));
 		ticketing_bt.setBounds(237, 677, 122, 49);
@@ -414,15 +413,19 @@ public class Main_login extends JPanel {
 			}
 		});
 
-		// 매점버튼 클릭시 매점화면으로 이동. 이 부분은 우선 매점팀이 진행예정
+		
+		//매점으로 버튼 클릭시 매점으로 이동
+		
 		snack_bt.addActionListener(new ActionListener() {
-
+			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				sign_in.card.show(sign_in.pg, "snack");
-				System.out.println("매점버튼 눌러 매점 전환 성공");
-
+				sign_in.card.show(signin.pg, "snack1");
+				
 			}
 		});
+		
+		
+		
 	}
 }

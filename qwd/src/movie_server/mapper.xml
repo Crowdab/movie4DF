@@ -38,6 +38,11 @@
 		SELECT COUNT(*) FROM customer WHERE cust_ID = #{cust_ID}
 	</select>
 
+	<!-- 비밀번호를 변경(customer 테이블에 pw부분을 업데이트) -->
+	<update id="changepwd" parameterType="movie_server.CustomerVO">
+		update customer set cust_password = #{cust_password} where cust_id = #{cust_id}
+	</update>
+	
 	<!-- 지호 -->
 	<!-- Customer 에서 현재 로그인 한 회원정보 가져오기 -->
    <select id="getMemberLogin" resultType="movie_server.CustomerVO">
@@ -156,4 +161,15 @@
 	<update id="adminadd" parameterType="String">
 		update customer set admin_yn=1 where cust_id=#{cust_id}
 	</update>
+	<update id="changeinfo" parameterType="movie_server.CustomerVO">
+		update customer 
+		set cust_name = #{cust_name}, cust_birth = #{cust_birth}
+        where cust_id = #{cust_id};
+	</update>
+	
+	<!-- 득윤 -->
+<!-- 영화 스케쥴표 전체보기 -->
+	<select id="m_mslist" resultType="movie_server.M_movieVO">
+		SELECT * FROM movie_schedule order by movie_id
+	</select>
 </mapper>

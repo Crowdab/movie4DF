@@ -8,18 +8,17 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import c_loginout.Sign_in;
 import movie_server.LoginInfo_VO;
 import movie_server.Protocol;
 
-public class admin_panel extends JPanel {
+public class Admin_panel extends JPanel {
 	Sign_in sign_in;
 
 		
-		public admin_panel(Sign_in signin) {
+		public Admin_panel(Sign_in signin) {
 			this.sign_in = signin;
 			
 			this.setLayout(null);
@@ -116,4 +115,3 @@ public class admin_panel extends JPanel {
 			
 		}
 	}
-

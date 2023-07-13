@@ -131,45 +131,7 @@ public class Ticket_before_pay extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				Pay dialog = new Pay((Frame)SwingUtilities.getWindowAncestor(Ticket_before_pay.this));
 				dialog.showPoint(signin.cvo.getPoint());
-				
-				sign_in.card.show(sign_in.pg, "main_login");
-				sign_in.to_main.model1.setRowCount(0);
-				sign_in.to_main.model3.setRowCount(0);
-				System.out.println("홈으로 버튼 누르면 초기화,메인");
-				sign_in.to_main.lblNewLabel_6.setIcon(null);
-				sign_in.to_main.lblNewLabel_8_2.setText("");
-				sign_in.to_main.lblNewLabel_8_2_1.setText("");
-				sign_in.to_main.lblNewLabel_10.setText("");
-				sign_in.to_main.lblNewLabel_10_1.setText("");
-				sign_in.to_main.lblNewLabel_10_2.setText("");
-				sign_in.to_main.lblNewLabel_10_3.setText("");
-				sign_in.to_main.table_1.clearSelection();
-				sign_in.to_main.table_2.clearSelection();
-				sign_in.to_main.table_3.clearSelection();
-				sign_in.to_main.comboBox.setSelectedIndex(0);
-				sign_in.to_main.comboBox_1.setSelectedIndex(0);
-
-				// 좌석창 초기화
-				sign_in.t_seat.lblNewLabel_6.setIcon(null);
-				sign_in.t_seat.lblNewLabel_8_2.setText("");
-				sign_in.t_seat.lblNewLabel_8_2_1.setText("");
-				sign_in.t_seat.lblNewLabel_10.setText("");
-				sign_in.t_seat.lblNewLabel_10_1.setText("");
-				sign_in.t_seat.lblNewLabel_11.setText("");
-				sign_in.t_seat.lblNewLabel_10_2.setText("");
-				sign_in.t_seat.lblNewLabel_10_3.setText("");
-				sign_in.t_seat.lblNewLabel_4.setText("");
-				sign_in.t_seat.map.resetSelectedSeats();
-				sign_in.t_seat.map.resetCheckBoxes();
-
-				// 결제확인창 초기화
-				lblNewLabel_6.setText("");
-				lblNewLabel_7.setText("");
-				lblNewLabel_10.setText("");
-				lblNewLabel_11.setText("");
-				lblNewLabel_12.setText("");
-				lblNewLabel_13.setText("");
-				lblNewLabel_14.setText("");
+				signin.card.show(signin.pg, "main_login");
 			}
 		});
 

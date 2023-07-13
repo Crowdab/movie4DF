@@ -196,40 +196,56 @@ public class Ticket_seat extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 
 				
-//				 String adultCountText = lblNewLabel_8_2.getText().replace("명", ""); String
-//				 childCountText = lblNewLabel_8_2_1.getText().replace("명", ""); int aCount =
-//				 Integer.parseInt(adultCountText); 
-//				 int cCount =Integer.parseInt(childCountText); 
-//				 int selectedSeatsCount =sign_in.ts_map.selectedSeats().size(); 
-//				 int totalSelectedCount = aCount + cCount;
-//
-//				 System.out.println("제대로된 인원이 나오나? "+ aCount + cCount + totalSelectedCount);
-//				 if (selectedSeatsCount > totalSelectedCount) {
-//				 JOptionPane.showMessageDialog(null," 인원만큼 좌석을 선택하세요.", "경고",
-//				 JOptionPane.WARNING_MESSAGE); } else if (selectedSeatsCount <
-//				 totalSelectedCount) { JOptionPane.showMessageDialog(null, " 인원만큼 좌석을 선택하세요.",
-//				 "경고", JOptionPane.WARNING_MESSAGE); } else { }
+				 String adultCountText = lblNewLabel_8_2.getText().replace("명", ""); 
+				 String childCountText = lblNewLabel_8_2_1.getText().replace("명", ""); 
+				 int aCount = Integer.parseInt(adultCountText); 
+				 int cCount =Integer.parseInt(childCountText); 
+				 //인원라벨에서 "명" 을 뻬고 나온 숫자를 인티저로 정수로 변환
+				 				 
+				 int totalSelectedCount = aCount + cCount;
+				 //성인과 아동 인원의 합
 				 
-
-	
-
-				adultCount = lblNewLabel_8_2.getText(); // 성인인원 겟
-				childCount = lblNewLabel_8_2_1.getText(); // 아동인원 겟
-				date = lblNewLabel_10_1.getText(); // 날짜 겟
-				time = lblNewLabel_10_2.getText(); // 시간 겟
-				theater = lblNewLabel_11.getText(); // 상영관 겟
-				amount = lblNewLabel_10_3.getText(); // 금액 겟
-				seat = lblNewLabel_4.getText(); // 좌석 겟
-
-				sign_in.card.show(sign_in.pg, "tb_pay"); // 결제확인창 뜨기
-
-				sign_in.tb_pay.lblNewLabel_6.setText(adultCount); // 겟한거 집어넣기
-				sign_in.tb_pay.lblNewLabel_7.setText(childCount); // 겟한거 집어넣기
-				sign_in.tb_pay.lblNewLabel_11.setText(date); // 겟한거 집어넣기
-				sign_in.tb_pay.lblNewLabel_13.setText(seat);// 겟한거 집어넣기
-				sign_in.tb_pay.lblNewLabel_14.setText(amount);// 겟한거 집어넣기
-				sign_in.tb_pay.lblNewLabel_12.setText(theater);// 겟한거 집어넣기
+				 int count2 = map.su2;
+				 //체크박스의 개수. 
 				 
+				 
+				 System.out.println("제대로된 인원이 나오나? "+ aCount + cCount + totalSelectedCount +count2 );
+				 if (count2 > totalSelectedCount) {
+					 JOptionPane.showMessageDialog(null," 인원만큼 좌석을 선택하세요.", "경고",JOptionPane.WARNING_MESSAGE); 
+					 
+					 
+				 } else if (count2 <totalSelectedCount) { 
+					 JOptionPane.showMessageDialog(null, " 인원만큼 좌석을 선택하세요.","경고", JOptionPane.WARNING_MESSAGE); 
+					 
+				 }  else if( count2 == totalSelectedCount) { 
+					 int res = JOptionPane.showOptionDialog(getParent(), "선택하신 좌석으로 예약할까요?", "좌석확인",
+								JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
+						if (res == 0) {
+							// 실제저장하는 코드
+							adultCount = lblNewLabel_8_2.getText(); // 성인인원 겟
+							childCount = lblNewLabel_8_2_1.getText(); // 아동인원 겟
+							date = lblNewLabel_10_1.getText(); // 날짜 겟
+							time = lblNewLabel_10_2.getText(); // 시간 겟
+							theater = lblNewLabel_11.getText(); // 상영관 겟
+							amount = lblNewLabel_10_3.getText(); // 금액 겟
+							seat = lblNewLabel_4.getText(); // 좌석 겟
+							
+							sign_in.card.show(sign_in.pg, "tb_pay"); // 결제확인창 뜨기
+							
+							sign_in.tb_pay.lblNewLabel_6.setText(adultCount); // 겟한거 집어넣기
+							sign_in.tb_pay.lblNewLabel_7.setText(childCount); // 겟한거 집어넣기
+							sign_in.tb_pay.lblNewLabel_11.setText(date); // 겟한거 집어넣기
+							sign_in.tb_pay.lblNewLabel_13.setText(seat);// 겟한거 집어넣기
+							sign_in.tb_pay.lblNewLabel_14.setText(amount);// 겟한거 집어넣기
+							sign_in.tb_pay.lblNewLabel_12.setText(theater);// 겟한거 집어넣기
+							
+
+						} else if (res == 1) {
+							return;
+						}
+							
+					 
+			}
 				 
 			}
 		});

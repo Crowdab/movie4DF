@@ -19,6 +19,7 @@ import c_loginout.Sign_in;
 import movie_server.CustomerVO;
 import movie_server.Pay_VO;
 
+// 포인트 충분할 때 나오는 결제창~
 public class Pay extends JDialog {
 
 	Sign_in sign_in;

@@ -527,12 +527,24 @@ public class Ticket_office_main extends JPanel {
 					model1.setRowCount(0);
 					
 					more_bt.setEnabled(false);
+
 					
 				} catch (Exception e2) {
-					// TODO: handle exception
+					
 				}
 				
-				
+				 lblNewLabel_6.setIcon(null);
+				 lblNewLabel_8_2.setText("");
+				 lblNewLabel_8_2_1.setText("");
+				 lblNewLabel_10.setText("");
+				 lblNewLabel_10_1.setText("");
+				 lblNewLabel_10_2.setText("");
+				 lblNewLabel_10_3.setText("");
+				 table_1.clearSelection();
+				 table_2.clearSelection();
+				 table_3.clearSelection();
+				 comboBox.setSelectedIndex(0);
+				 comboBox_1.setSelectedIndex(0);
 			}
 		});
 		

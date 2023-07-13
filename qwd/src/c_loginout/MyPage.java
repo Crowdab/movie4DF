@@ -119,11 +119,30 @@ public class MyPage extends JPanel {
 				String ch_pw = JOptionPane.showInputDialog("변경할 비밀번호를 입력해주세요");
 				System.out.println("마이페이지 입장 비밀번호 입력"+ ch_pw);
 				try {
-					CustomerVO vo = new CustomerVO();
+					CustomerVO c_vo = new CustomerVO();
+					Protocol p = new Protocol();
 					
-					// vo.setCust_password(ch_pw)
+					
+					System.out.println("프로토콜 받아버리기~");
+					
+					//여기에 값이 없다고함signin.lvo.getCust_id()
+					c_vo.setCust_id(signin.cvo.getCust_id());
+					c_vo.setCust_password(ch_pw);
+					System.out.println("받은 값(아이디): " + c_vo.getCust_id());
+					System.out.println("받은 값(비번): " + c_vo.getCust_password());
+					
+					
+					p.setC_vo(c_vo);
+					System.out.println(p.getC_vo().getCust_id());
+					System.out.println(p.getC_vo().getCust_password());
+					
+					p.setCmd(505);
+					
+					signin.out.writeObject(p);
+					signin.out.flush();
+					
 				} catch (Exception e2) {
-					// TODO: handle exception
+					System.out.println(e2);
 				}
 			}
 		});

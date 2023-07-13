@@ -101,7 +101,7 @@ public class DAO {
 		ss.commit();
 		return result;
 	}
-
+	// 로그아웃하기(lpgininfo 테이블에 로그인한 회원 정보 지우기)
 	public static int loginInfoDelete(String cust_id) {
 		// System.out.println("DAO loginfo delete: "+vo.getCust_id());
 		int result = getSession().delete("logout", cust_id);
@@ -109,6 +109,14 @@ public class DAO {
 		System.out.println("DAO result:" + result);
 		return result;
 	}
+	
+	// 비밀번호 변경(customer테이블에서 로그인한 회원의 정보를 찾아 비밀번호 데이터를 변경(업데이트)하는 것!)
+		public static int changePwd(CustomerVO c_vo) {
+			int result = getSession().update("changepwd", c_vo);
+			ss.commit();
+			System.out.println("DAO result:" + result);
+			return result;
+		}
 
 	// TICKET 테이블에 예매 정보 삽입
 	public static int getInsert(Pay_VO pay_vo) {
@@ -208,21 +216,34 @@ public class DAO {
 	}
 	
 	// 민서
-		public static int getDeleteresult(String dID) {
-			int result = getSession().delete("custdelete", dID);
-			System.out.println("mapper갔다옴");
-			ss.commit();
-			return result;
+	public static int getDeleteresult(String dID) {
+		int result = getSession().delete("custdelete", dID);
+		System.out.println("mapper갔다옴");
+		ss.commit();
+		return result;
+	}
+	public static List<CustomerVO> getCustOne(String sId){
+		List<CustomerVO> list = null;
+		list = getSession().selectList("custone", sId);
+		return list;
+	}
+	public static int getAdminAddresult(String aID) {
+		int result = getSession().update("adminadd", aID);
+		ss.commit();
+		return result;
+	}
+	public static int getChangInfoAd(CustomerVO chvo) {
+		int result = getSession().update("changeinfo", chvo);
+		ss.commit();
+		return result;
+	}
+	
+	//득윤
+		public static List<M_movieVO> getMMsList() {
+			System.out.println("DAO 지나갑니다");
+			List<M_movieVO> list = null;
+
+			list = getSession().selectList("m_mslist");
+			return list;		
 		}
-		public static List<CustomerVO> getCustOne(String sId){
-			List<CustomerVO> list = null;
-			list = getSession().selectList("custone", sId);
-			return list;
-		}
-		public static int getAdminAddresult(String aID) {
-			int result = getSession().update("adminadd", aID);
-			ss.commit();
-			return result;
-		}
-		
 }

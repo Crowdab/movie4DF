@@ -1,135 +1,186 @@
 package snackbar;
 
+import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.UIManager;
 
 import c_loginout.Sign_in;
 
 public class Snack extends JPanel {
 	Sign_in sign_in;
-	private JTable table;
-	private JScrollPane jscroll;
-    private DefaultTableModel tableModel;
-    Object ob[][] = new Object[0][3];
-    String[] title = {"총주문내역","수량","가격"};
-    private JLabel lblNewLabel_1;
+	private JPanel panel, subpanel;
+	private JScrollPane scrollPane;
+	private JScrollPane scrollPane_2;
+	JButton jb4,jb5,jb6,jb7,jb8,jb9,
+	jb10,jb11,jb12,jb13,jb14,jb15,jb16,jb17,jb18;
+	private JPanel panel_2;
 	
 	
 	
 	public Snack(Sign_in signin) {
 		this.sign_in = signin;
-		this.setLayout(null);
+		setLayout(null);
 		
-		JButton back_bt = new JButton("뒤로가기");
-		back_bt.setBounds(41, 31, 158, 42);
-		this.add(back_bt);
 		
-		JButton snack1point_charge_bt = new JButton("포인트충전");
-		snack1point_charge_bt.setBounds(596, 31, 158, 42);
-		this.add(snack1point_charge_bt);
-		
-		JLabel lblNewLabel = new JLabel(signin.cvo.getCust_name() + " 님");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(284, 31, 158, 29);
-		this.add(lblNewLabel);
-		
-		JLabel snack1_point_label = new JLabel("잔여포인트 : " + signin.cvo.getPoint());
-		snack1_point_label.setHorizontalAlignment(SwingConstants.CENTER);
-		snack1_point_label.setBounds(284, 57, 158, 29);
-		this.add(snack1_point_label);
-		
-		JButton btnNewButton_2 = new JButton("팝콘");
-		btnNewButton_2.setBounds(199, 91, 131, 42);
-		this.add(btnNewButton_2);
-		
-		JButton btnNewButton_2_1 = new JButton("음료");
-		btnNewButton_2_1.setBounds(331, 91, 131, 42);
-		this.add(btnNewButton_2_1);
-		
-		JButton btnNewButton_2_1_1 = new JButton("사이드");
-		btnNewButton_2_1_1.setBounds(463, 91, 131, 42);
-		this.add(btnNewButton_2_1_1);
-		
-		JButton snack_pop1 = new JButton("팝콘1");
-		snack_pop1.setBounds(92, 147, 203, 135);
-		this.add(snack_pop1);
-		
-		JButton snack_pop2 = new JButton("팝콘2");
-		snack_pop2.setBounds(295, 147, 203, 135);
-		this.add(snack_pop2);
-		
-		JButton snack_pop3 = new JButton("팝콘3");
-		snack_pop3.setBounds(500, 147, 203, 135);
-		this.add(snack_pop3);
-		
-		JButton snack_pop4 = new JButton("팝콘4");
-		snack_pop4.setBounds(92, 284, 203, 135);
-		this.add(snack_pop4);
-		
-		JButton snack_pop5 = new JButton("팝콘5");
-		snack_pop5.setBounds(295, 284, 203, 135);
-		this.add(snack_pop5);
-		
-		JButton snack_pop6 = new JButton("팝콘6");
-		snack_pop6.setBounds(500, 284, 203, 135);
-		this.add(snack_pop6);
-		
-		JButton snack_pop7 = new JButton("팝콘7");
-		snack_pop7.setBounds(92, 422, 203, 135);
-		this.add(snack_pop7);
-		
-		JButton snack_pop8 = new JButton("팝콘8");
-		snack_pop8.setBounds(295, 422, 203, 135);
-		this.add(snack_pop8);
-		
-		JButton snack_pop9 = new JButton("팝콘9");
-		snack_pop9.setBounds(500, 422, 203, 135);
-		this.add(snack_pop9);
-		
+		JButton btnNewButton = new JButton("뒤로가기");
+		btnNewButton.setBounds(69, 29, 136, 49);
+		add(btnNewButton);
 	
+		JButton btnNewButton_1 = new JButton("포인트 충전");
+		btnNewButton_1.setBounds(537, 29, 156, 49);
+		add(btnNewButton_1);
 		
+		JLabel lblNewLabel = new JLabel("잔여포인트");
+		lblNewLabel.setBounds(251, 37, 223, 32);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblNewLabel);
 		
-		
-		JButton btnNewButton_4 = new JButton("구매하기");
-		btnNewButton_4.setBounds(510, 706, 193, 42);
-		this.add(btnNewButton_4);
-		
-		tableModel = new DefaultTableModel(ob, title);
-		table = new JTable(tableModel);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(91, 567, 612, 135);
-		this.add(scrollPane);
-		
-		scrollPane.setViewportView(table);
-		
-		lblNewLabel_1 = new JLabel("합계금액 : 0");
-		lblNewLabel_1.setFont(new Font("굴림", Font.BOLD, 20));
-		lblNewLabel_1.setBounds(92, 706, 243, 42);
+		JLabel lblNewLabel_1 = new JLabel("4딸_라매점");
+		lblNewLabel_1.setBounds(188, 135, 392, 77);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setFont(new Font("굴림", Font.PLAIN, 30));
 		add(lblNewLabel_1);
 		
-		JButton reset_bt = new JButton("비우기");
-		reset_bt.setBounds(331, 706, 173, 42);
-		add(reset_bt);
+		JButton btnNewButton_2 = new JButton("팝콘");
+		btnNewButton_2.setBounds(197, 282, 165, 57);
+		add(btnNewButton_2);
+		
+		JButton btnNewButton_2_1 = new JButton("음료");
+		btnNewButton_2_1.setBounds(29, 282, 165, 57);
+		add(btnNewButton_2_1);
+		
+		JButton btnNewButton_2_1_1 = new JButton("스넥");
+		btnNewButton_2_1_1.setBounds(363, 282, 165, 57);
+		add(btnNewButton_2_1_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("장바구니");
+		lblNewLabel_2.setBounds(569, 282, 181, 63);
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setFont(new Font("굴림", Font.PLAIN, 20));
+		add(lblNewLabel_2);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane_1.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane_1.setBounds(537, 341, 223, 323);
+		add(scrollPane_1);
+		
+		panel_2 = new JPanel();
+		scrollPane_1.setViewportView(panel_2);
+		panel_2.setLayout(new CardLayout(1, 0));
+		
+		JLabel lblNewLabel_3 = new JLabel("총 금액은");
+		lblNewLabel_3.setBounds(537, 674, 229, 43);
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblNewLabel_3);
+		
+		JButton btnNewButton_3 = new JButton("결재하기");
+		btnNewButton_3.setBounds(288, 741, 266, 49);
+		add(btnNewButton_3);
+		
+		scrollPane_2 = new JScrollPane();
+		scrollPane_2.setViewportBorder(UIManager.getBorder("Menu.border"));
+		scrollPane_2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scrollPane_2.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane_2.setBounds(29, 349, 503, 363);
+		add(scrollPane_2);
+		
+		JPanel panel_1 = new JPanel();
+		scrollPane_2.setViewportView(panel_1);
+		panel.setLayout(new GridBagLayout());
 
-		// 돌아가기
-		back_bt.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				sign_in.card.show(sign_in.pg, "main_login");
-			}
-		});
+		
+		
+		scrollPane = new JScrollPane();
+		panel.add(scrollPane);
+		
+		jb4 = new JButton("찹쌀떡");
+
+		jb5 = new JButton("메밀묵"); 
+		jb6 = new JButton("인절미"); 
+		jb7 = new JButton("메밀전병"); 
+		jb8 = new JButton("호떡"); 
+		jb9 = new JButton("찰떡"); 
+		jb10 = new JButton("가래떡"); 
+		jb11 = new JButton("감자떡"); 
+		
+		jb12 = new JButton("수정과"); 
+		jb13 = new JButton("식혜"); 
+		jb14 = new JButton("소쥬"); 
+		jb15 = new JButton("삐루"); 
+		
+		jb16 = new JButton("조청"); 
+		jb17 = new JButton("콩고물"); 
+		jb18 = new JButton("고추장");
+		panel_1.setLayout(new GridLayout(0, 2, 0, 0));
+		
+		panel_1.add(jb4);
+		jb4.setPreferredSize(new Dimension(230, 240));
+	
+	
+		panel_1.add(jb5);
+		jb5.setPreferredSize(new Dimension(230, 240));
+		panel_1.add(jb6);
+		jb6.setPreferredSize(new Dimension(230, 240));
+		panel_1.add(jb7);
+		
+		panel_1.add(jb8);
+	
+		panel_1.add(jb9);
+
+		panel_1.add(jb10);
+
+		panel_1.add(jb11);
+		
+		panel_1.add(jb12);
+		
+		panel_1.add(jb13);
+		
+		panel_1.add(jb14);
+	
+		panel_1.add(jb15);
+
+		panel_1.add(jb16);
+	
+		panel_1.add(jb17);
+	
+		panel_1.add(jb18);
+	
+		subpanel = new JPanel();
+		
+		JLabel sublblNewLabel = new JLabel("제품명");
+		sublblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		sublblNewLabel.setFont(new Font("굴림", Font.PLAIN, 15));
+		sublblNewLabel.setBounds(12, 22, 176, 45);
+		subpanel.add(sublblNewLabel);
+		
+		JButton subbtnNewButton = new JButton("+");
+		subbtnNewButton.setBounds(24, 89, 43, 23);
+		subpanel.add(subbtnNewButton);
+		
+		JLabel sublblNewLabel_1 = new JLabel("1");
+		sublblNewLabel_1.setBounds(79, 86, 31, 29);
+		subpanel.add(sublblNewLabel_1);
+		
+		JButton subbtnNewButton_1 = new JButton("-");
+		subbtnNewButton_1.setBounds(122, 89, 43, 23);
+		subpanel.add(subbtnNewButton_1);
+		
+		JLabel sublblNewLabel_2 = new JLabel("가격:10000\r\n");
+		sublblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		sublblNewLabel_2.setBounds(24, 114, 143, 26);
+		subpanel.add(sublblNewLabel_2);
+		subpanel.setLayout(null);
+		panel_2.add(subpanel);
 	}
-}
+	}

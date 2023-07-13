@@ -24,7 +24,7 @@ public class Ticket_seat_map extends JPanel {
 	    ArrayList<String> selectedSeats = new ArrayList<>();
 	    JCheckBox seatCheckBox;
 	    String seatName;
-	    int sum;
+	    int sum, su2;
 
 
 	    //체크박스 배열로 만듬.
@@ -46,12 +46,17 @@ public class Ticket_seat_map extends JPanel {
 	    }
 
 
+	    
+	    
+	    
+	    
 
 	    //좌석선택창에서 콤보벅스 눌러 상영관 변경시 선택좌석 클리어 
 	    public void resetSelectedSeats() {
 	        selectedSeats.clear();
 	        updateSelectedSeatsLabel();
 	    }
+	    
 	    
 	    //좌석선택창에서 콤보벅스 눌러 상영관 변경시 체크박스 클리어
 	    public void resetCheckBoxes() {
@@ -65,6 +70,15 @@ public class Ticket_seat_map extends JPanel {
 	    }
 
 	
+	    public int selectedSeats(){
+	    	int su = selectedSeats.size();
+	    	System.out.println(su);  //0 
+	    	System.out.println(selectedSeats); //[]
+	    	System.out.println(selectedSeats.size()); //0
+			return su;
+			
+		}
+	    
 	    private class SeatCheckBoxListener implements ActionListener {
 	        @Override
 	        public void actionPerformed(ActionEvent e) {
@@ -79,12 +93,13 @@ public class Ticket_seat_map extends JPanel {
 	            }
 
 	            updateSelectedSeatsLabel();
-
+	            System.out.println("여기는" + selectedSeats); 
+	            //[] 안에 클릭한 좌석의 번호가 매겨지는 곳.
 	                }
 	            }
-	        
+	
 	    
-	    private void updateSelectedSeatsLabel() {
+	    public void updateSelectedSeatsLabel() {
 	        StringBuilder sb = new StringBuilder();
 	        for (String seat : selectedSeats) {
 	            sb.append(seat).append(",\n");
@@ -93,20 +108,17 @@ public class Ticket_seat_map extends JPanel {
 	            sb.setLength(sb.length() - 2);
 	        }
 	        sign_in.t_seat.lblNewLabel_4.setText(sb.toString());
+	        //배열을 뽑아내서 텍스트에리어에 붙이자. 
+	        
+	        su2 =  selectedSeats.size();
+	        //배열의 숫자 구하기
+	        System.out.println("su2는" +su2); //베열의 숫자나옴. 
+	        
+	        
 	    }
 	    
 	    
 
-	 /*   private void updateSelectedSeatsLabel() {
-	        StringBuilder sb = new StringBuilder();
-	        for (String seat : selectedSeats) {
-	            sb.append(seat).append(", ");
-	        }
-	        if (sb.length() > 0) {
-	            sb.setLength(sb.length() - 2);
-	        }
-	        sign_in.t_seat.lblNewLabel_4.setText(sb.toString());
-	    }*/
 	    
 
 	}
